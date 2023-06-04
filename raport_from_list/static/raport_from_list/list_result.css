@@ -1,0 +1,113 @@
+.list-result-background-container {
+  position: relative;
+  height: auto;
+  min-height: 100vh;
+  overflow: hidden; /* This is added to contain the pseudo-element */
+}
+
+.list-result-background-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("/static/raport_from_list/images/letters.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;  /* Make sure the pseudo-element is below the actual content */
+}
+
+
+.input-container{
+  position: relative;
+  margin-top: 20rem;
+}
+
+/* iamge for the card */
+
+.result-img img {
+  width: 100%; /* or any other percentage value that suits your needs */
+  height: 40rem; /* this will maintain the aspect ratio of the image */
+}
+  
+.profile-image-container {
+  position: relative;
+  /* padding-top: 20rem; */
+  z-index: 1;
+}
+  
+/* buttons wiht results files */
+.results-icons {
+  
+  padding: 0.5rem;
+
+}
+
+.download-icon{
+  max-width: 4rem !important;
+}
+
+.results-icons a {
+background: linear-gradient(0deg, #fff7d17e, #fffdf680);
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  border: 0.2rem solid #19A7CE;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  color: #765a7a;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.results-icons a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* zip from urls button */
+.subbmit-button{
+  display: inline-block;
+  margin-top: 2rem;
+}
+
+#pdf-form {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+}
+
+.zip-pdfs{
+  display: inline-block;
+  margin-top: 5rem;
+}
+
+.zip-pdfs {
+  background-color: #19A7CE;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  margin: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+}
+
+.zip-pdfs:hover {
+  transform: scale(0.9);
+}
+
+.zip-pdfs:hover {
+  background-color: #1486a5;
+}

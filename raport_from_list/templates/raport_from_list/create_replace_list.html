@@ -1,0 +1,86 @@
+
+{% extends 'raport_from_list/base.html' %}
+{% load static %}
+
+{% block title %} 
+File upload
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "raport_from_list/home.css" %}"/>
+  <link rel="stylesheet" href="{% static "raport_from_list/enter_replace_list.css" %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="list-upload-background-container">
+  <div class="document-detail-container">
+    <div class="document-detail-container">
+        <div class="picture-and-search">
+            <div class="input-container" id="section-to-scroll">
+                <div class="result-img">
+                    <img src="{% static 'raport_from_list/images/you-can-do-it.jpg' %}" alt="My Image">
+                </div>
+                <h2>Search and Replace:</h2>
+                {% if error_message %}
+                    <div class="alert alert-danger">{{ error_message }}</div>
+                {% endif %}
+                <form method="post" name="modify_form">
+                    {% csrf_token %}
+                    {% for form in list_forms %}
+                        <div>
+                            <span class="search-replace-label">Enter the search word number: {{forloop.counter}}</span>
+                            {{ form.search }}
+                        </div>
+                        <div>
+                            <span class="search-replace-label">Enter replace word list number: {{forloop.counter}}</span>
+                            {{ form.replace }}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="converted-to-html">
+            <h1>Content of the orginal document</h1>
+            <div id="doc-content"  class="doc-text-container">
+                {{ docx_html|safe }}
+            </div>
+            <a class="section-to-scroll" href="#section-to-scroll">Go to chooing words panel</a>  
+        </div>      
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+// Variable to hold the currently focused field
+let focusedField = null;
+
+// Listen for focus events on input fields
+document.addEventListener('focus', function(event) {
+    if (event.target.nodeName === 'INPUT') {
+        // Update the currently focused field
+        focusedField = event.target;
+    }
+}, true);  // The 'true' parameter causes the listener to capture events before they reach their target elements
+
+// Then, in your existing click event listener:
+
+// Select the document content div
+const docContent = document.getElementById('doc-content');
+
+// Listen for click events
+docContent.addEventListener('click', function(event) {
+    // Make sure the clicked element is a word
+    if (event.target.nodeName === 'SPAN' && focusedField) {
+        // Get the word
+        const word = event.target.textContent;
+
+        // Populate the currently focused field with the clicked word
+        focusedField.value = word;
+    }
+});
+</script>
+{% endblock scripts%}

@@ -1,0 +1,45 @@
+{% extends 'raport_from_list/base.html' %}
+{% load static %}
+
+{% block title %} 
+Home
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "raport_from_list/home.css" %}"/>
+  <link rel="stylesheet" href="{% static "users/registration.css" %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="login-image-container">
+  <div class="input-container">
+    <div class="registration-container">
+      <img src="{% static 'users/images/login-icon.png' %}" alt="login-icon">
+        <div>
+          <form method="post">
+            {% csrf_token %}
+
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+              {% for message in messages %}
+              {{ message }}
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            {% for field in form %}
+            <div class="reset-form-control">
+              {{ field.errors }}
+              {{ field.label_tag }} {{ field }}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="submit-button">Login</button>
+            <a href="{% url 'register' %}" class="login-alternative">Register</a>
+            <p><a href="{% url 'password_reset' %}" class = 'passwort-reset-link'>Forgot password?</a></p>
+        </form>
+        </div>
+    </div>
+ </div>
+</div>
+{% endblock %} 

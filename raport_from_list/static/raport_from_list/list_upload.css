@@ -1,0 +1,38 @@
+.list-upload-background-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; /* Use viewport height instead of percentage */
+  background-image: url("/static/raport_from_list/images/replace_list.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.list-upload-image-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  backdrop-filter: blur(10px);
+}
+
+.profile-image-container {
+  position: relative;
+  padding-top: 15rem;
+  z-index: 1;
+}
+
+/* use example file anhortag */
+
+.load-example {
+  color: #fff; /* You can use your website's theme color */
+  text-decoration: none;
+  display: inline-block;
+  padding: 0 0 1rem 0;
+  font-size: 1.6rem;
+}
+
+.load-example:hover {
+  text-decoration: underline;
+}

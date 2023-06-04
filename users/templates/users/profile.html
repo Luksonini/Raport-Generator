@@ -1,0 +1,64 @@
+{% extends 'raport_from_list/base.html' %}
+{% load static %}
+
+{% block title %} 
+Profile
+{% endblock %} 
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'raport_from_list/home.css' %}"/>
+    <link rel="stylesheet" href="{% static 'users/registration.css' %}"/> 
+    <link rel="stylesheet" href="{% static 'users/profile.css' %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="profile-image-container">
+    <div class="profile-container">
+        <div class="container glass">
+            {% if results_url %}
+            <div class="modified_files_stored">
+            </div>
+            <h2 class="shearing-information"><p>
+                <span>You can share your reports by simply copying the link or </span> 
+                <span>by sending the email below. The link will be attached automatically.</span>  
+            </p> 
+            </h2>
+            <div class="orginal_files_stored">
+                <a href="{{ results_url }}">{{ results_url }}</a>
+            </div>
+                <div class="share-file-container">
+                <div class="form-container"> <!-- Added new div for form container -->
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <div class="form-field">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.message.label_tag }}
+                            {{ form.message }}
+                        </div>
+                        <button type="submit", class="submit-button">Share</button>
+                    </form>
+                </div>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% else %}
+            <h1>You havent't prepare any raports to share yet</h1>
+            {% endif %}
+            </div>
+        </div>
+    <div class="change-credentials-container">
+        <a class="nav-link" href="{% url 'password_change' %}">
+            <span>Change password</span>
+        </a>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

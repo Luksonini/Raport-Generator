@@ -1,0 +1,50 @@
+{% extends 'raport_from_list/base.html' %}
+{% load static %}
+
+{% block title %} 
+Home
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "raport_from_list/home.css" %}"/>
+  <link rel="stylesheet" href="{% static 'users/registration.css' %}"/> 
+  <link rel="stylesheet" href="{% static 'users/profile.css' %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="profile-image-container">
+    <div class="container glass">
+      <div class="homepage-container">
+        <h1>Fast and Reliable Custom Report Generator</h1>
+        <h3>Streamline Your Document Creation Process With Just a Few Clicks</h3>
+        <p>Welcome to our Custom Report Generator, a state-of-the-art application designed to simplify your report creation process. Our platform uses a unique, automated approach to dynamically generate multiple reports from a single template. No more manual editing, no more copy-pasting.</p>
+    
+        <h2>Key Features:</h2>
+        <ol>
+            <li><strong>Upload and Go:</strong> Upload a DOCX file and an Excel file with words to replace, and let our system do the rest.</li>
+            <li><strong>Manual Custom List:</strong> Generate reports from a custom list without needing to upload an Excel file. Simply input the words to replace, and their replacements, then click generate.</li>
+            <li><strong>Batch Document Generation:</strong> Generate multiple unique documents at once, saving time and ensuring accuracy.</li>
+            <li><strong>Format Flexibility:</strong> Download your generated documents as either DOCX or PDF. We also offer a convenient ZIP download for batch documents.</li>
+            <li><strong>Secure and Private:</strong> Your data is safe with us. All uploaded files and generated documents are automatically deleted after download or logout.</li>
+        </ol>
+        <p>Whether you are working on sales proposals, personalized letters, certificates, or any document requiring repeated customizations, our Custom Report Generator can significantly streamline your work process.</p>
+        <h2>File Storage Duration:</h2>
+        <p>Generated files are stored on our server for one week. After that, they are automatically deleted to ensure privacy and data security.</p>
+        <p><strong>Ready to see it in action? <a href="{% url 'register' %}">Sign up now</a> or <a href="{% url 'login' %}">log in</a> to get started. Registration is quick and doesn't require email confirmation.</strong></p>
+    
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="example-movie">
+        <img src="{% static 'raport_from_list/images/excel-movie.gif' %}" alt="Example Movie">
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'raport_from_list/base.html' %}
+
+{% load static %}
+
+{% block title %} 
+    {{ document_name }}
+{% endblock title %}    
+
+{% block css_files %}
+    {% comment %} <link rel="stylesheet" href="{% static 'raport_from_list/document_detail.css' %}"/> {% endcomment %}
+    <link rel="stylesheet" href="{% static "raport_from_list/enter_replace_list.css" %}"/>
+{% endblock css_files %}
+
+{% block content %}
+<div class="excel-detail-background-container">
+  <div class="document-detail-container">
+  <a class="section-to-scroll" href="#section-to-scroll">Go to chooing columns</a>
+    <div class="converted-to-html">
+        <div class="table-container">
+            <table class="table table-striped table-bordered">
+                {{ excel_html_table|safe }}
+            </table>
+        </div>
+        <div class="profile-image-container" id="section-to-scroll" >
+            <div class="input-container img-container excel-detail"> 
+                <div class="result-img">    
+                    <img src="{% static 'raport_from_list/images/excel.png' %}" alt="Top Image" class="top-image">
+                </div>
+                <h1>Excel Detail</h1>
+                {% if error_message %}
+                    <div class="alert alert-danger">{{ error_message }}</div>
+                {% endif %}
+                <div class="checkboxes">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in columns_form %}
+                            <div class="fieldWrapper">
+                                {{ field.errors }}
+                                {{ field.label_tag }} {{ field }}
+                            </div>
+                        {% endfor %}
+                        <hr>
+                        <h3>Select the column containing filenames:</h3>
+                        <div class="select">
+                            {{ filenames_form.filenames.errors }}
+                            {{ filenames_form.filenames }}
+                        </div>
+                        <br>
+                        <button type="submit" class="submit-button">Submit</button>
+                    </form> 
+                </div>                
+            </div>
+        </div>
+        <div class="converted-to-html">
+            <h1>Content of the orginal document</h1>
+            <div id="doc-content"  class="doc-text-container">
+                {{ docx_html|safe }}
+                <a class="section-to-scroll" href="#section-to-scroll">Go to chooing words panel</a>  
+            </div>   
+        </div>    
+    </div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+// Variable to hold the currently focused field
+let focusedField = null;
+
+// Listen for focus events on input fields
+document.addEventListener('focus', function(event) {
+    if (event.target.nodeName === 'INPUT') {
+        // Update the currently focused field
+        focusedField = event.target;
+    }
+}, true);  // The 'true' parameter causes the listener to capture events before they reach their target elements
+
+// Then, in your existing click event listener:
+
+// Select the document content div
+const docContent = document.getElementById('doc-content');
+
+// Listen for click events
+docContent.addEventListener('click', function(event) {
+    // Make sure the clicked element is a word
+    if (event.target.nodeName === 'SPAN' && focusedField) {
+        // Get the word
+        const word = event.target.textContent;
+
+        // Populate the currently focused field with the clicked word
+        focusedField.value = word;
+    }
+});
+</script>
+{% endblock %}

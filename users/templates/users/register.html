@@ -1,0 +1,45 @@
+{% extends 'raport_from_list/base.html' %}
+{% load static %}
+
+{% block title %} 
+Home
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "raport_from_list/home.css" %}"/>
+  <link rel="stylesheet" href="{% static "users/registration.css" %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="login-image-container">
+  <div class="input-container">
+    <div class="registration-container">
+      <img src="{% static 'users/images/login-icon.png' %}" alt="login-icon">
+      <form method="post">
+        {% csrf_token %}
+        {% for field in register_form %}
+        <div class="reset-form-control">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+          <div class="alert alert-danger" role="alert">
+            {% for error in field.errors %}
+            {{ error }}
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="submit-button">Register</button>
+        <a href="{% url 'login' %}" class="login-alternative">Login</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+

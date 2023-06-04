@@ -1,0 +1,97 @@
+{% extends 'raport_from_list/base.html' %}
+{% load static %}
+
+{% block title %} 
+    File upload
+{% endblock %} 
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "raport_from_list/home.css" %}"/>
+    <link rel="stylesheet" href="{% static "raport_from_list/list_result.css" %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="list-result-background-container">
+<div class="blurred-background"></div>
+<div class="document-detail-container">
+    <div class="picture-and-search results">
+        <div class="input-container"> 
+            <div class="result-img">
+                <img src="{% static 'raport_from_list/images/liblary-big.jpg' %}" alt="image of the big liblary" style="filter: brightness(0.8);">
+            </div>
+            <h2>Modified Files:</h2>
+            <div class="container">
+                <div class="row">
+                    {% if docx_urls %}
+                        {% for url in docx_urls %}
+                            <div class="col-md-2 results-icons">
+                                <a href="{{ url }}" download>
+                                    <img src="{% static 'raport_from_list/images/word-icon.png' %}" alt="My Image" class="download-icon">File nr:<br> {{ forloop.counter }}
+                                </a>
+                            </div>
+                            {% if forloop.counter|divisibleby:6 %}
+                                </div>
+                                <div class="row">
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                
+                {% if docx_zip_path %}
+                    <a class="submit-button" href="{{ docx_zip_path }}" download>Download all DOCXs</a>
+                {% else %}
+                    <div class="row">
+                        <div class="col-md-2">
+                           <p>No docx files avaliable</p> 
+                        </div>
+                    </div>
+                {% endif %}
+                <form id="pdf-form"  method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <button type="submit" id="pdf-submit" name="convert_to_pdf" class="submit-button" data-toggle="tooltip" title="Conversion to PDF may take a few minutes">
+                        Convert to PDF
+                    </button>
+                </form>
+            </div>
+
+            {% if pdf_urls %}
+                <h2>PDF Files:</h2>
+                <div class="container">
+                    <div class="row">
+                        {% for pdf_url in pdf_urls %}
+                            <div class="col-md-2 results-icons">
+                                <a href="{{ pdf_url }}" download>
+                                    <img src="{% static 'raport_from_list/images/pdf_icon.png' %}" alt="My Image" class="download-icon">File nr: <br>{{ forloop.counter }}
+                                </a>
+                            </div>
+                            {% if forloop.counter|divisibleby:6 %}
+                                </div>
+                                <div class="row">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% if pdf_zip_url %}
+                        <a class="zip-pdfs" href="{{ pdf_zip_url }}" download>download all PDFs</a>
+                    {% else %}
+                        <div class="row">
+                            <div class="col-md-2">
+                               <p>No ZiP files avaliable</p> 
+                            </div>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Note:</strong> Conversion to PDF may take a few minutes.
+                    </div>
+            {% endif %}
+        </div>   
+    </div>
+</div>
+
+{% endblock content %}
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

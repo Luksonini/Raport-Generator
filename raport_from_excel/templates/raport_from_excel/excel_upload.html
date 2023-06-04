@@ -1,0 +1,35 @@
+{% extends 'raport_from_list/base.html' %}
+{% load static %}
+
+{% block title %} 
+File upload
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "raport_from_list/home.css" %}"/>
+  <link rel="stylesheet" href="{% static "raport_from_list/list_upload.css" %}"/>
+{% endblock %}
+
+
+{% block content %}
+<div class = "list-upload-background-container">
+  <div class="profile-image-container">
+    {% include 'raport_from_list/footer.html' %}
+    <div class="input-container img-container">
+        <img src="{% static 'raport_from_list/images/pink_clock.jpg' %}" alt="My Image">
+      <h1>Document Upload</h1>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group excel-upload-form">
+          <span>Docx: </span> {{ excel_form.doc_file }}<br>
+          <span>Excel: </span> {{ excel_form.excel_file }}
+       </div>
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
+      <a class="load-example" href="{% url 'load_excel_example' username=request.user.username %}">Load example docx</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

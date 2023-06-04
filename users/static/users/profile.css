@@ -1,0 +1,145 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+
+
+.change-credentials-container {
+  width: 100rem;
+  text-align: center; 
+  padding: 1rem; 
+  background: linear-gradient(0deg, rgba(255, 222, 232, 0.4), rgba(255, 222, 232, 0.6));
+  backdrop-filter: blur(2px);
+  border-radius: 20px;
+}
+
+.change-credentials-container a{
+  color: #4a394d;
+}
+
+.change-credentials-container a:hover{
+  color: #4a394d;
+}
+
+.profile-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("/static/users/images/background2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100rem;
+  height: 75rem;
+  margin: 0 auto;
+  color: #4a394d;
+}
+
+
+.container.glass {
+  background: linear-gradient(0deg, rgba(255, 222, 232, 0.4), rgba(255, 222, 232, 0.6));
+  margin: 10rem 0 10rem 0;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 222, 232, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  height: auto; /* Set initial height to auto */
+  transition: height 0.3s ease-in-out; /* Added transition */
+  /* backdrop-filter: blur(2px) brightness(0.9); */
+}
+
+.container.glass:focus-within {
+  height: 90rem; /* Increase the height as needed */
+}
+
+
+.shearing-information{
+  padding: 0 4rem 0 4rem;
+  color: #4a394d;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+.orginal_files_stored,
+.modified_files_stored {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.orginal_files_stored a,
+.modified_files_stored a {
+  font-size: 2.5rem;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.orginal_files_stored a:hover,
+.modified_files_stored a:hover {
+  color: #19A7CE;
+}
+
+.share-file-container {
+  margin-top: 2rem;
+}
+
+.form-container {
+  margin-top: 2rem;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  display: block;
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #ccc; 
+  border-radius: 4px;
+  background-color: transparent; 
+  font-size: 2rem;
+  color: #4a394d;
+}
+
+.email-text-input{
+  background-color: transparent; 
+  font-size: 2rem;
+  color: #4a394d;
+}
+
+.submit-button{
+  margin-top: 0;
+  margin-left: 0;
+}
+
