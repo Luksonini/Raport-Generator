@@ -1,7 +1,6 @@
 from users.models import Profile, ModifiedFile, PDFFile, ExcelFile, DocxZipFile, PdfZipFile
 from docx import Document 
 import tempfile
-from mammoth import convert_to_html
 import zipfile
 from io import BytesIO
 from django.core.files.base import ContentFile
@@ -10,8 +9,7 @@ from pathlib import Path
 from docx2pdf import convert
 from django.conf import settings
 import pythoncom
-from django.core.files.storage import FileSystemStorage
-from django.core.exceptions import ObjectDoesNotExist
+
 
 def convert_docxs_to_zip(profile, modified_files):
     try:
