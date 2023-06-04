@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 from docx2pdf import convert
 from django.conf import settings
-import pythoncom
+# import pythoncom
 
 
 def convert_docxs_to_zip(profile, modified_files):
@@ -75,7 +75,7 @@ def convert_to_pdf(modified_files, username):
 
     try:
         pdf_urls = []
-        pythoncom.CoInitialize()
+        # pythoncom.CoInitialize()
         doc_file_path = Path(modified_files[0].modyfied_doc_file.path)
         doc_dir_path = doc_file_path.parent
         # Construct PDF directory path
