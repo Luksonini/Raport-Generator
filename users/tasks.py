@@ -1,6 +1,5 @@
 from django_cron import CronJobBase, Schedule
-from datetime import datetime, timedelta
-from users.models import ModifiedFile, PDFFile, ExcelFile, DocxZipFile, PdfZipFile, Profile
+from users.models import Profile
 from django.utils import timezone
 from raport_from_list.raport_functions import delete_old_files
 

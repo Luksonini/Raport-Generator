@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from users.models import Profile, ModifiedFile
 from .raport_functions import convert_docxs_to_zip, convert_to_pdf, generate_reports, convert_pdfs_to_zip, delete_old_files, generate_html 
-import pythoncom
 from django.core.files import File
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
@@ -106,7 +105,7 @@ def create_replace_list(request, username):
 
 
 def results_page(request, username):
-    pythoncom.CoInitialize()
+    # pythoncom.CoInitialize()
     pdf_urls = []
     zip_file_url = []
     pdf_zip_url = []
