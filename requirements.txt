@@ -3,4 +3,5 @@ pandas==2.0.1
 python-docx==0.8.11
 docx2pdf==0.1.8
 django-cron==0.6.0
-bs4-0.0.1
+bs4==0.0.1
+openpyxl==3.1.2
