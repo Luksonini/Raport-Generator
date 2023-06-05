@@ -116,13 +116,12 @@ def results_page(request, username):
     docx_urls = [doc.modyfied_doc_file.url for doc in modified_files]
     if docx_urls:
         docx_zip_path = convert_docxs_to_zip(profile, modified_files)  # Pass the queryset to generate_zip function
-    
     for pdf_file in profile.pdffile_set.all():
         pdf_file.pdf_file.delete()
     
-    if request.method == 'POST' and 'convert_to_pdf' in request.POST:
-        pdf_urls = convert_to_pdf(modified_files, username) 
-        pdf_zip_url = convert_pdfs_to_zip(profile)
+    # if request.method == 'POST' and 'convert_to_pdf' in request.POST:
+    #     pdf_urls = convert_to_pdf(modified_files, username) 
+    #     pdf_zip_url = convert_pdfs_to_zip(profile)
 
     return render(request, 'raport_from_list/results_page.html', {
         'docx_urls': docx_urls,
