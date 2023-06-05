@@ -1,8 +1,15 @@
 from django.shortcuts import render
 from django.core.mail import send_mail
 from .forms import ContactForm
+import os
 
 def aboutme(request):
+    pdf_directory = 'aboutme/static/courses/'
+
+    # Get the list of PDF courses files in the directory
+    pdf_files = os.listdir(pdf_directory)
+    pdf_files = [file for file in pdf_files if file.endswith('.pdf')]
+
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -20,4 +27,4 @@ def aboutme(request):
     else:
         form = ContactForm()
 
-    return render(request, 'aboutme/aboutme.html', {'form': form})
+    return render(request, 'aboutme/aboutme.html', {'form': form, 'pdf_files': pdf_files})

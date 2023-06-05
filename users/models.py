@@ -47,7 +47,7 @@ class ModifiedFile(models.Model):
 
 
 def get_pdf_upload_path(instance, filename):
-    return f"{instance.profile.user.username}/pdf_documents/{filename}"
+    return f"{instance.profile.user.username}/modified_doc_documents/{filename}"
 
 
 class PDFFile(models.Model):

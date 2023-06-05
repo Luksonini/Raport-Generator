@@ -349,7 +349,7 @@ label[for="excel-file-input"] {
 
 .document-detail-container {
   position: relative;
-  /* padding-top: 20rem; */
+  padding-bottom: 5rem; 
   z-index: 1;
 }
 
@@ -534,7 +534,7 @@ footer{
   width: 100%;
   background-color: transparent;
   padding: 1rem;
-  color: #4a394d;
+  color: #fff;
   text-align: center;
   font-size: 1.2rem;
 }

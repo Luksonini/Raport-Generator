@@ -23,7 +23,7 @@
     </nav>
     <div class="grid-container">
         <div class="grid-item-1">
-            <img src="{% static 'images/water.jpg' %}" alt="background image showing water">
+            <img src="{% static 'images/water3.jpg' %}" alt="background image showing water">
         </div>
         <div class="grid-item-2">
             <section class="introduction">
@@ -48,9 +48,9 @@
                 <div class="dropdown">
                     <button>Finished courses&emsp;&#8744;</button>
                     <div class="dropdown-content">
-                      <a href="#">Certificate 1</a>
-                      <a href="#">Certificate 2</a>
-                      <a href="#">Certificate 3</a>
+                        {% for pdf_file in pdf_files %}
+                            <a href="{% static 'courses/'|add:pdf_file %}">{{ pdf_file }}</a>
+                        {% endfor %}
                     </div>
                   </div>
             </div>
