@@ -37,6 +37,9 @@ def convert_docxs_to_zip(profile, modified_files):
         return None
      
 
+import os
+import comtypes.client
+
 def convert_to_pdf(modified_files, username):
     pythoncom.CoInitialize()
     profile = Profile.objects.get(user__username=username)
@@ -50,17 +53,25 @@ def convert_to_pdf(modified_files, username):
             pdf_urls = []
             doc_file_path = Path(modified_files[0].modyfied_doc_file.path)
             doc_dir_path = doc_file_path.parent
-            convert(doc_dir_path)
 
-            all_files = os.listdir(doc_dir_path)
-            for file_name in all_files:
-                if file_name.endswith(".pdf"):
-                    relative_file_path = os.path.join(username, 'modified_doc_documents', file_name)
+            # Convert DOCX to PDF using Microsoft Word
+            word = comtypes.client.CreateObject("Word.Application")
+            for file_name in os.listdir(doc_dir_path):
+                if file_name.endswith(".docx"):
+                    docx_file_path = os.path.join(doc_dir_path, file_name)
+                    pdf_file_name = os.path.splitext(file_name)[0] + ".pdf"
+                    pdf_file_path = os.path.join(doc_dir_path, pdf_file_name)
+
+                    doc = word.Documents.Open(docx_file_path)
+                    doc.SaveAs(pdf_file_path, FileFormat=17)  # 17 corresponds to PDF format
+                    doc.Close()
+
+                    relative_file_path = os.path.join(username, 'modified_doc_documents', pdf_file_name)
                     pdf_file = PDFFile.objects.create(pdf_file=relative_file_path, profile=profile)
                     pdf_file.save()
                     pdf_urls.append(pdf_file.pdf_file.url)
-                else:
-                    continue
+
+            word.Quit()
 
             # Print the PDF file names for testing purposes
             pdfs = PDFFile.objects.filter(profile=profile)
