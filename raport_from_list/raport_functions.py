@@ -42,45 +42,44 @@ def convert_to_pdf(modified_files, username):
     profile = Profile.objects.get(user__username=username)
     old_pdf_files = PDFFile.objects.filter(profile=profile)
 
-    for pdf_file in old_pdf_files:
-        pdf_file.pdf_file.delete()
-        # pdf_file.delete()
+    if old_pdf_files:
+        # PDF files already exist, no need to perform conversion
+        pdf_urls = [pdf_file.pdf_file.url for pdf_file in old_pdf_files]
+    else:
+        try:
+            pdf_urls = []
+            doc_file_path = Path(modified_files[0].modyfied_doc_file.path)
+            doc_dir_path = doc_file_path.parent
+            convert(doc_dir_path)
 
-    try:
-        pdf_urls = []
-        # pythoncom.CoInitialize()
-        doc_file_path = Path(modified_files[0].modyfied_doc_file.path)
-        doc_dir_path = doc_file_path.parent
-        convert(doc_dir_path)
+            all_files = os.listdir(doc_dir_path)
+            for file_name in all_files:
+                if file_name.endswith(".pdf"):
+                    relative_file_path = os.path.join(username, 'modified_doc_documents', file_name)
+                    pdf_file = PDFFile.objects.create(pdf_file=relative_file_path, profile=profile)
+                    pdf_file.save()
+                    pdf_urls.append(pdf_file.pdf_file.url)
+                else:
+                    continue
 
-        # Get the file names and paths in the pdf_dir_path
-        all_files = os.listdir(doc_dir_path)
-        for file_name in all_files:
-            # print(file_name)
-            if file_name.endswith(".pdf"):
-                relative_file_path = os.path.join(username, 'modified_doc_documents', file_name)
-                pdf_file = PDFFile.objects.create(pdf_file=relative_file_path, profile=profile)
-                pdf_file.save()
-                pdf_urls.append(pdf_file.pdf_file.url)
-                # print(pdf_urls)
-            else:
-                continue
-        pdfs = PDFFile.objects.filter(profile=profile)
-        for i in pdfs:
-            print(f"files : {i.pdf_file.name}")
+            # Print the PDF file names for testing purposes
+            pdfs = PDFFile.objects.filter(profile=profile)
+            for pdf in pdfs:
+                print(f"PDF file: {pdf.pdf_file.name}")
 
-        return pdf_urls
-    except Exception as e:
-        print(f"Error converting to PDF: {str(e)}")
-        return []
+        except Exception as e:
+            print(f"Error converting to PDF: {str(e)}")
+            pdf_urls = []
+
+    return pdf_urls
 
 
 def convert_pdfs_to_zip(profile):
     try:
-        # Delete old zip files
-        old_zip_files = PdfZipFile.objects.filter(profile=profile)
-        # for old_zip_file in old_zip_files:
-        #     old_zip_file.pdf_zip_file.delete()
+        # Check if there is an existing zip file
+        existing_zip_file = PdfZipFile.objects.filter(profile=profile).first()
+        if existing_zip_file:
+            return existing_zip_file.pdf_zip_file.url
 
         zip_buffer = BytesIO()
         with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
