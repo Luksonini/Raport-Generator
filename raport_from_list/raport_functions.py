@@ -13,10 +13,10 @@ import pythoncom
 
 def convert_docxs_to_zip(profile, modified_files):
     try:
-        # Delete old zip files
-        old_zip_files = DocxZipFile.objects.filter(profile=profile)
-        for old_zip_file in old_zip_files:
-            old_zip_file.docx_zip_file.delete()
+        # Check if there is an existing zip file
+        existing_zip_file = DocxZipFile.objects.filter(profile=profile).first()
+        if existing_zip_file:
+            return existing_zip_file.docx_zip_file.url
 
         zip_buffer = BytesIO()
         with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
