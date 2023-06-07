@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['www.raport-generator.pl']
 # ALLOWED_HOSTS = ['luksonini.pythonanywhere.com']
 
@@ -146,7 +146,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-MEDIA_ROOT = '/home/Luksonini/Raport-Generator/media/'
+# MEDIA_ROOT = '/home/Luksonini/Raport-Generator/media/'
+# MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 # DEFAULT_FILE_STORAGE = 'myapp.storage_backend.MyCustomStorage'
