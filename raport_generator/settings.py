@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 import os
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
 
 # DEFAULT_FILE_STORAGE = 'myapp.storage_backend.MyCustomStorage'
 #AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',]

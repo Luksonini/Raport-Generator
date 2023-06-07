@@ -1,8 +1,8 @@
 # Raport-Generator
 
 ## Introduction
-Raport-Generator is a web application that allows users to generate modified versions of Word documents (.docx)by replacing keywords with corresponding values. 
-It also provides functionalities to convert multiple DOCX or PDF files into a ZIP archive. 
+Raport-Generator is a web application that allows users to generate modified versions of Word documents (.docx)by replacing keywords with corresponding values.
+It also provides functionalities to convert multiple DOCX or PDF files into a ZIP archive.
 The project utilizes various libraries such as BeautifulSoup (bs4), pandas, python-docx, zipfile, and docx2pdf.
 
 ## Features
@@ -52,6 +52,24 @@ python manage.py runserver
 
 Feel free to customize the installation instructions based on your project's requirements and any additional setup steps needed.
 
+## Configuration
+To configure the application for proper functionality, you need to create a `.env` file in the same directory as `manage.py`. Follow these steps:
+
+1. Create a new file named `.env` in the project directory.
+2. Inside the `.env` file, add the following lines:
+SECRET_KEY=your_generated_secret_key
+
+
+9. Start the development server:
+python manage.py runserver
+
+
+10. Open your web browser and navigate to http://localhost:8000 to access the Raport-Generator application.
+
+> **Note**: Make sure to replace `https://github.com/Luksonini/Raport-Generator.git` with the actual URL of your GitHub repository.
+
+Feel free to customize the installation instructions based on your project's requirements and any additional setup steps needed.
+
 ## Usage
 - Upload a Word document (.docx) using the provided file upload functionality.
 - Enter keywords and corresponding values in the form to replace specific placeholders in the document.
@@ -59,8 +77,9 @@ Feel free to customize the installation instructions based on your project's req
 - Download the generated reports in either DOCX or PDF format.
 - Convert multiple DOCX or PDF files into a ZIP archive using the respective conversion functionalities.
 
-**License**
+## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
-**Contact**
+## Contact
 For any questions or inquiries, please contact lukasz.jozef.gasior@gmail.com.
+

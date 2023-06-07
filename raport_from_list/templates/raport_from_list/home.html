@@ -1,13 +1,13 @@
 {% extends 'raport_from_list/base.html' %}
 {% load static %}
 
-{% block title %} 
+{% block title %}
 Home
-{% endblock %} 
+{% endblock %}
 
 {% block css_files %}
   <link rel="stylesheet" href="{% static "raport_from_list/home.css" %}"/>
-  <link rel="stylesheet" href="{% static 'users/registration.css' %}"/> 
+  <link rel="stylesheet" href="{% static 'users/registration.css' %}"/>
   <link rel="stylesheet" href="{% static 'users/profile.css' %}"/>
 {% endblock %}
 
@@ -18,7 +18,7 @@ Home
         <h1>Fast and Reliable Custom Report Generator</h1>
         <h3>Streamline Your Document Creation Process With Just a Few Clicks</h3>
         <p>Welcome to our Custom Report Generator, a state-of-the-art application designed to simplify your report creation process. Our platform uses a unique, automated approach to dynamically generate multiple reports from a single template. No more manual editing, no more copy-pasting.</p>
-    
+
         <h2>Key Features:</h2>
         <ol>
             <li><strong>Upload and Go:</strong> Upload a DOCX file and an Excel file with words to replace, and let our system do the rest.</li>
@@ -29,9 +29,9 @@ Home
         </ol>
         <p>Whether you are working on sales proposals, personalized letters, certificates, or any document requiring repeated customizations, our Custom Report Generator can significantly streamline your work process.</p>
         <h2>File Storage Duration:</h2>
-        <p>Generated files are stored on our server for one week. After that, they are automatically deleted to ensure privacy and data security.</p>
+        <p>Generated files are stored on our server for 24h. After that, they are automatically deleted to ensure privacy and data security.</p>
         <p><strong>Ready to see it in action? <a href="{% url 'register' %}">Sign up now</a> or <a href="{% url 'login' %}">log in</a> to get started. Registration is quick and doesn't require email confirmation.</strong></p>
-    
+
     </div>
 
     {% if messages %}

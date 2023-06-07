@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +17,7 @@
             <li class="navbar-item"><a href="{% url 'home' %}" class="navbar-link">Raport Generator</a></li>
             <li class="navbar-item"><a href="#Programming Interests" class="navbar-link">Programming Interests</a></li>
             <li class="navbar-item"><a href="#Projects" class="navbar-link">Projects</a></li>
-            <li class="navbar-item"><a href="#Contact" class="navbar-link">Contact</a></li>  
+            <li class="navbar-item"><a href="#Contact" class="navbar-link">Contact</a></li>
         </ul>
     </nav>
     <div class="grid-container">
@@ -39,7 +38,7 @@
         <div class="grid-item-4">
             Łukasz Gąsior
         </div>
-        <div id = "Programming Interests" class="grid-item-5">
+        <div id="Programming Interests" class="grid-item-5">
             <div class="interests-description">
                 <p class="interests-description-paragraph">&emsp;&emsp;&emsp;&emsp;I find great satisfaction in problem-solving and experimenting, and programming provides a platform to iterate and learn without the cost constraints of biological experiments. I've always been interested in continual growth and learning, but I found my options for development in the scientific field limited. This led me to explore another field - Information Technology.</p>
             </div>
@@ -55,7 +54,7 @@
                   </div>
             </div>
         </div>
-        <div id = "Projects" class="grid-item-6">
+        <div id="Projects" class="grid-item-6">
             <div class="Projects">
                 <h2 class="projects-header">Projects</h2>
             </div>
@@ -76,15 +75,14 @@
                 </div>
             </div>
         </div>
-        <div id = "Contact" class="grid-item-8">
+        <div id="Contact" class="grid-item-8">
             <div class="contact">
                 <h2 class="contact-header">Contact Me</h2>
                 <p class="contact-paragraph">&emsp;&emsp;&emsp;&emsp;I am open to collaboration, learning opportunities, internships, or job offers. If you'd like to work with me, teach me something new, or offer me a position, please do not hesitate to contact me. This would provide an opportunity for further growth and development.</p>
-                <div class = "address">
+                <div class="address">
                     <span>Łukasz Gąsior</span>
                     <span>Email: lukasz.jozef.gasior@gmail.com</span>
-                    <span>Phone: 883 932 366</span>
-                    <div class = "contact-icons">
+                    <div class="contact-icons">
                         <div>
                             <a href="https://www.researchgate.net/profile/Lukasz-Gasior-2"><img src="{% static 'images/researchgate2.png' %}" alt="Researchgate icon"></a>
                         </div>
@@ -92,7 +90,7 @@
                             <a href="https://www.facebook.com/profile.php?id=100000615463002"><img src="{% static 'images/facebook3.png' %}" alt="facebook icon"></a></a>
                         </div>
                         <div>
-                            <a href="#"><img src="{% static 'images/linkedin.png' %}" alt="linkedin icon"></a> 
+                            <a href="#"><img src="{% static 'images/linkedin.png' %}" alt="linkedin icon"></a>
                         </div>
                     </div>
                 </div>
@@ -136,18 +134,25 @@
                         <div class="message-group">
                             <label for="message">Leave a message</label>
                             <textarea id="message" name="message" required></textarea>
-                            {% if form.message.errors %}
-                                <div class="error">{{ form.message.errors }}</div>
-                            {% endif %}
                         </div>
                     </div>
                     <div class="input-group">
                         <input type="submit" value="Submit">
                     </div>
                 </form>
+                        {% if success_message %}
+        <div class="message-succes" role="alert">
+            {{ success_message }}
+        </div>
+        {% endif %}
+        {% if error_message %}
+            <div class="message-error" role="alert">
+                {{ error_message }}
+            </div>
+        {% endif %}
+        </div>
             </div>
         </div>
-    </div>
     <footer>
         <p>©2023 by Łukasz Gąsior. Hosted on PythonAnywhere. All rights reserved.</p>
     </footer>

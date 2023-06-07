@@ -31,15 +31,14 @@ class ModifiedFile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def delete(self, *args, **kwargs):
-        if self.modyfied_doc_file: 
+        if self.modyfied_doc_file:
             storage, path = self.modyfied_doc_file.storage, self.modyfied_doc_file.path
             super().delete(*args, **kwargs)  # deletes the model instance from the database
         storage.delete(path)  # deletes the file from the filesystem
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.profile.next_scheduled_deletion_time = self.created_at   # Set deletion time after 7 days
-        # + timedelta(days=7)
+        self.profile.next_scheduled_deletion_time = self.created_at + timedelta(days=1)
         self.profile.save()
 
     def __str__(self):
@@ -54,7 +53,7 @@ class PDFFile(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     pdf_file = models.FileField(upload_to=get_pdf_upload_path, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     def delete(self, *args, **kwargs):
         storage, path = self.pdf_file.storage, self.pdf_file.path
         super().delete(*args, **kwargs)  # deletes the model instance from the database
@@ -62,7 +61,7 @@ class PDFFile(models.Model):
 
     def __str__(self):
         return self.pdf_file.name
-    
+
 
 def get_excel_upload_path(instance, filename):
     return f"{instance.profile.user.username}/excel_documents/{filename}"
@@ -80,8 +79,8 @@ class ExcelFile(models.Model):
 
     def __str__(self):
         return self.excel_file.name
-    
-    
+
+
 def get_docx_zip_upload_path(instance, filename):
     return f"{instance.profile.user.username}/doc_zip_documents/{filename}"
 
@@ -97,7 +96,7 @@ class DocxZipFile(models.Model):
 
     def __str__(self):
         return self.docx_zip_file.name
-    
+
 
 def get_pdf_zip_path(instance, filename):
     return f"{instance.profile.user.username}/pdf_zip/{filename}"
@@ -114,12 +113,12 @@ class PdfZipFile(models.Model):
 
     def __str__(self):
         return self.pdf_zip_file.name
-    
+
 @receiver(post_delete, sender=Profile)
 def delete_profile_doc_file(sender, instance, **kwargs):
     if instance.doc_file:
         instance.doc_file.delete(False)
-    
+
 @receiver(post_delete, sender=ModifiedFile)
 def delete_mod_file(sender, instance, **kwargs):
     instance.modyfied_doc_file.delete(False)
