@@ -5,7 +5,6 @@ from raport_from_list.raport_functions import delete_old_files
 
 
 class DeleteOldFilesCronJob(CronJobBase):
-    # RUN_EVERY_MINS = 24 * 60  # Run the task every hour
     RUN_EVERY_MINS = 1
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'users.delete_old_files_cron_job'  # Unique code for the task
@@ -22,4 +21,4 @@ class DeleteOldFilesCronJob(CronJobBase):
             if scheduled_deletion_time and now >= scheduled_deletion_time:
                 delete_old_files(profile)
 
-     
+

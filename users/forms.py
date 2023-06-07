@@ -31,7 +31,7 @@ class UserRegisterForm(forms.ModelForm):
             raise forms.ValidationError("Password must contain at least one digit.")
         return password
 
-    
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'password', 'autocomplete': 'off'}))
