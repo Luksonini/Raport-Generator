@@ -6,7 +6,9 @@ from django.conf import settings
 
 
 def aboutme(request):
-    pdf_directory = '/home/Luksonini/Raport-Generator/aboutme/static/courses/'
+    # 
+    pdf_directory = r'D:\programowanie\raport generator\Raport-Generator\aboutme\static\courses'
+    # pdf_directory = os.path.join(settings.BASE_DIR, 'static', 'courses')
 
     # Get the list of PDF course files in the directory
     pdf_files = os.listdir(pdf_directory)
