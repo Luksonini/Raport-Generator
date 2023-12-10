@@ -10,151 +10,176 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <ul class="navbar-menu">
-            <li class="navbar-item"><a href="{% url 'home' %}" class="navbar-link">Raport Generator</a></li>
-            <li class="navbar-item"><a href="#Programming Interests" class="navbar-link">Programming Interests</a></li>
-            <li class="navbar-item"><a href="#Projects" class="navbar-link">Projects</a></li>
-            <li class="navbar-item"><a href="#Contact" class="navbar-link">Contact</a></li>
+    <nav class="bg-[#007092] p-4 w-full fixed top-0 z-30">
+        <ul class="flex flex-col flex-wrap md:flex-row md:justify-end list-none">
+            <li class="md:mr-auto md:ml-10">
+                <a href="#" class="text-white no-underline text-xl">Raport Generator</a>
+            </li>
+            <li class="md:mr-10">
+                <a href="#Programming Interests" class="text-white no-underline text-xl">Programming Interests</a>
+            </li>
+            <li class="md:mr-10">
+                <a href="#Projects" class="text-white no-underline text-xl">Projects</a>
+            </li>
+            <li class="md:mr-10">
+                <a href="#Contact" class="text-white no-underline text-xl">Contact</a>
+            </li>
         </ul>
     </nav>
-    <div class="grid-container">
-        <div class="grid-item-1">
-            <img src="{% static 'images/water3.jpg' %}" alt="background image showing water">
-        </div>
-        <div class="grid-item-2">
-            <section class="introduction">
-                <div class="introduction-text">
-                    <p>&emsp;&emsp;&emsp;&emsp;Hello, my name is Łukasz. Currently, I work as a scientist at the Polish Academy of Sciences, specializing in reproductive biology and neurobiology. Although my academic background is in biological sciences where I earned a doctorate, my interest shifted towards IT, specifically in Python programming, web development, and data analysis.</p>
-                </div>
-            </section>
-        </div>
-        <div class="grid-item-3">
-            <img src="{% static 'images/main-image.jpg' %}" alt="Profile image">
-            <div class="ball"></div>
-        </div>
-        <div class="grid-item-4">
-            Łukasz Gąsior
-        </div>
-        <div id="Programming Interests" class="grid-item-5">
-            <div class="interests-description">
-                <p class="interests-description-paragraph">&emsp;&emsp;&emsp;&emsp;I find great satisfaction in problem-solving and experimenting, and programming provides a platform to iterate and learn without the cost constraints of biological experiments. I've always been interested in continual growth and learning, but I found my options for development in the scientific field limited. This led me to explore another field - Information Technology.</p>
+
+    <div class="absolute inset-0 overflow-hidden z-10 h-[90rem]">
+        <img src="{% static 'images/water3.jpg' %}" alt="Tło" class="w-full h-full object-cover animate-scrolling absolute top-0 left-0">
+    </div>
+
+    <div class="absolute inset-x-0 mt-[30rem] h-full z-20 bg-blue-200">
+        <div class="text-grey-400 h-1/2 bg-white relative flex flex-col justify-center md:items-start">
+            <div class="absolute md:ml-[2rem] h-[35rem] -top-[60%] hidden lg:block">
+                <img src="{% static 'images/main-image.jpg' %}" alt="Profile image" class="w-full max-h-[60%] md:max-h-[80%] object-contain rounded-full border-[1rem] border-[#f9f9f9]">
             </div>
-            <div class="interests">
-                <h2 class="intrests-header">Programming Interests</h2>
-                <div class="dropdown">
+            <div class="absolute h-14 w-full -top-1/2 text-[4rem] text-bold md:-top-1/2 md:mb-[10rem]">
+                <p class="text-[#f9f9f9] lg:text-right sm:text-center lg:mr-[10rem]">Łukasz Gąsior</p>
+            </div>
+            <p class="text-2xl mx-[5rem] text-[#001c25] text-justify">
+                Hello, my name is Łukasz. Currently, I work as a scientist at the Polish Academy of Sciences, specializing in reproductive biology and neurobiology. Although my academic background is in biological sciences where I earned a doctorate, my interest shifted towards IT, specifically in Python programming, web development, and data analysis.
+            </p>
+        </div>
+        <div id="Programming Interests" class="flex flex-col lg:flex-row items-center bg-[#99d1e3]">
+            <div class="interests-description flex-1 mx-[5rem]">
+                <p class="leading-[2.5rem] text-[1.5rem] text-[#001c25] my-[5rem] text-justify">
+                    I find great satisfaction in problem-solving and experimenting, and programming provides a platform to iterate and learn without the cost constraints of biological experiments. I've always been interested in continual growth and learning, but I found my options for development in the scientific field limited. This led me to explore another field - Information Technology.
+                </p>
+            </div>
+            <div class="interests flex-1 flex flex-col items-center gap-[4rem] text-center mx-[5rem]">
+                <h2 class="text-6xl font-bold text-[#e6f4f8]">Programming Interests</h2>
+                <div class="dropdown mb-[5rem] relative text-[#00465d] border-[1px] border-[#001c25] p-2 px-4 text-center font-bold text-[1.5rem]" id="dropdownButton">
                     <button>Finished courses&emsp;&#8744;</button>
-                    <div class="dropdown-content">
+                    <div class="dropdown-content hidden absolute z-40 top-full left-1/2 transform -translate-x-1/2 w-[800px] text-left bg-[#f9f9f9] leading-[2.5rem] font-normal shadow-lg" id="dropdownContent">
                         {% for pdf_file in pdf_files %}
-                            <a href="{% static 'courses/'|add:pdf_file %}">{{ pdf_file }}</a>
+                        <a href="{% static 'courses/'|add:pdf_file %}" target="_blank">{{ forloop.counter }}. {{ pdf_file }}</a>
+                        <br>
                         {% endfor %}
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-[#e6f4f8] flex flex-col lg:flex-row">
+          <div class="interests flex-1 flex items-center justify-center gap-[4rem] text-center mx-[5rem]">   
+              <h2 class="text-6xl font-bold text-[#001c25] mt-[5rem] md:mt-[0rem]">Projects</h2> 
+          </div>
+          <div class="interests-description flex-1 mx-[5rem] flex flex-col justify-center leading-[2.5rem] text-[1.5rem] my-[5rem] gap-[1rem] text-justify">
+              <p class="my-projects-paragraph"><span class="font-bold">Capybara Investments Platform:</span> An innovative investment management platform developed using Django, providing comprehensive market analysis, investment strategy optimization, and advanced portfolio management. I integrated OpenAI's GPT technology to streamline protocol summarization for neurobiologists at the Polish Academy of Sciences.</p>
+              <a href="https://github.com/Luksonini/Momentum_wallet"  type="submit" value="Submit" target="_blank"><img class="h-[64px] transform transition duration-300 ease-in-out hover:scale-110" src="{% static 'images/github-sign.png' %}" alt="github"></a>
+              <p class="my-projects-paragraph"><span class="font-bold">Report Generator:</span> As the lead developer, I designed and implemented an advanced custom report generation system. This project expanded my skills in Django and underscored the importance of creating visually appealing and accessible applications. It also sparked my interest in JavaScript, which I am currently learning to further enhance my web development capabilities.</p>
+              <div class="flex gap-[2rem]">
+                <a href="https://github.com/Luksonini/Raport-Generator"  type="submit" value="Submit" target="_blank"><img class="h-[64px] transform transition duration-300 ease-in-out hover:scale-110" src="{% static 'images/github-sign.png' %}" alt="github"></a>
+                <a href="{% url 'home' %}"  type="submit" value="Submit" target="_blank"><img class="h-[64px] transform transition duration-300 ease-in-out hover:scale-110" src="{% static 'images/world-wide-web.png' %}" alt="www"></a>
+              </div>
+              <p class="my-projects-paragraph"><span class="font-bold">Neurobiology Laboratory Management System:</span> A comprehensive laboratory management system developed for the Polish Academy of Sciences. This system integrates various modules such as laboratory schedule management, reagent tracking, sample management, and scientific protocol generation, thereby enhancing the operational efficiency of neurobiology labs.</p>
+              <div class="flex gap-[2rem]">
+                <a href="https://github.com/Luksonini/laboratory_manager"  type="submit" value="Submit" target="_blank"><img class="h-[64px] transform transition duration-300 ease-in-out hover:scale-110" src="{% static 'images/github-sign.png' %}" alt="github"></a>
+                <a href="https://neurobiologia.pythonanywhere.com/accounts/signin/?next=/"  type="submit" value="Submit" target="_blank"><img class="h-[64px] transform transition duration-300 ease-in-out hover:scale-110" src="{% static 'images/world-wide-web.png' %}" alt="www"></a>
+              </div>
+           </div>
+        </div>
+        <div class="bg-[#00465d] flex-col lg:flex-row gap-[4rem] flex">
+          <div class="interests flex-1 flex-col items-center justify-center gap-[4rem] text-center mx-[5rem]  my-[5rem] ">
+              <h2 class="text-6xl font-bold text-[#e6f4f8]">Contact Me</h2>
+              <p class="leading-[2.5rem] text-[1.5rem] text-[#e6f4f8] my-[5rem] text-justify">I am open to collaboration, learning opportunities, internships, or job offers. If you'd like to work with me, teach me something new, or offer me a position, please do not hesitate to contact me. This would provide an opportunity for further growth and development.</p>
+              <div class="address flex flex-col justify-start items-start leading-[2.5rem] text-[1.5rem] text-[#e6f4f8]">
+                  <span>Łukasz Gąsior</span>
+                  <span>Email: lukasz.jozef.gasior@gmail.com</span>
+                  <div class="contact-icons flex gap-[4rem] my-[2rem]">
+                      <a href="https://www.researchgate.net/profile/Lukasz-Gasior-2"><img class="h-[64px] transform transition duration-300 ease-in-out hover:scale-110" src="{% static 'images/researchgate2.png' %}" alt="Researchgate icon"></a>
+                      <a href="https://www.facebook.com/profile.php?id=100000615463002"><img class="h-[64px] transform transition duration-300 ease-in-out hover:scale-110" src="{% static 'images/facebook3.png' %}" alt="facebook icon"></a>
+                      <a href="#"><img class="h-[64px] transform transition duration-300 ease-in-out hover:scale-110" src="{% static 'images/linkedin.png' %}" alt="linkedin icon"></a>
                   </div>
-            </div>
-        </div>
-        <div id="Projects" class="grid-item-6">
-            <div class="Projects">
-                <h2 class="projects-header">Projects</h2>
-            </div>
-            <div class="my-projects">
-                <p class="my-projects-paragraph">&emsp;&emsp;&emsp;&emsp;Raport Generator is my first project and it served as a stepping stone to learn HTML, CSS, data manipulation libraries like Pandas, and Django, a popular web development framework. I strongly believe that an application should be visually appealing and accessible to a broad audience, which sparked my interest in web design. Currently, I am learning JavaScript to enhance my web development capabilities.</p>
-                <p class="my-projects-paragraph">&emsp;&emsp;&emsp;&emsp;Beyond programming and web development, I also have a keen interest in economics and financial markets. I am working on a second project that aims to analyze financial markets using machine learning. The goal of this application is to recommend the best Polish and international companies to invest in, and present the current performance of the proposed investment portfolio.</p>
-            </div>
-        </div>
-        <div class="grid-item-7">
-            <div class="interests-description">
-                <p class="interests-description-paragraph">&emsp;&emsp;&emsp;&emsp;Raport Generator is my first project and it served as a stepping stone to learn HTML, CSS, data manipulation libraries like Pandas, and Django, a popular web development framework. I strongly believe that an application should be visually appealing and accessible to a broad audience, which sparked my interest in web design. Currently, I am learning JavaScript to enhance my web development capabilities.</p>
-                <p class="interests-description-paragraph">&emsp;&emsp;&emsp;&emsp;Beyond programming and web development, I also have a keen interest in economics and financial markets. I am working on a second project that aims to analyze financial markets using machine learning. The goal of this application is to recommend the best Polish and international companies to invest in, and present the current performance of the proposed investment portfolio.</p>
-            </div>
-            <div class="interests">
-                <h2 class="intrests-header">Raport Generator</h2>
-                <div class="dropdown">
-                    <a class="raport-gen-btn" href="{% url 'home' %}">Raport Generator</a>
-                </div>
-            </div>
-        </div>
-        <div id="Contact" class="grid-item-8">
-            <div class="contact">
-                <h2 class="contact-header">Contact Me</h2>
-                <p class="contact-paragraph">&emsp;&emsp;&emsp;&emsp;I am open to collaboration, learning opportunities, internships, or job offers. If you'd like to work with me, teach me something new, or offer me a position, please do not hesitate to contact me. This would provide an opportunity for further growth and development.</p>
-                <div class="address">
-                    <span>Łukasz Gąsior</span>
-                    <span>Email: lukasz.jozef.gasior@gmail.com</span>
-                    <div class="contact-icons">
-                        <div>
-                            <a href="https://www.researchgate.net/profile/Lukasz-Gasior-2"><img src="{% static 'images/researchgate2.png' %}" alt="Researchgate icon"></a>
-                        </div>
-                        <div>
-                            <a href="https://www.facebook.com/profile.php?id=100000615463002"><img src="{% static 'images/facebook3.png' %}" alt="facebook icon"></a></a>
-                        </div>
-                        <div>
-                            <a href="#"><img src="{% static 'images/linkedin.png' %}" alt="linkedin icon"></a>
-                        </div>
+              </div>
+          </div>
+          <div class="flex-1 flex justify-center items-center">
+            <form class="flex flex-col justify-between items-center gap-[2rem]" method="post">
+                {% csrf_token %}
+                <div class="flex flex-col sm:flex-row gap-[4rem] justify-center text-[1.5rem] text-[#e6f4f8]">
+                    <div class="firstname-group flex flex-col">
+                        <label for="firstname">First Name</label>
+                        <input class="appearance-none focus:outline-none bg-transparent border-b-2 border-[#e6f4f8]" type="text" id="firstname" name="first_name" required>
+                        {% if form.first_name.errors %}
+                            <div class="error">{{ form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="lastname-group flex flex-col">
+                        <label for="lastname">Last Name</label>
+                        <input class="appearance-none focus:outline-none bg-transparent border-b-2 border-[#e6f4f8]" type="text" id="lastname" name="last_name" required>
+                        {% if form.last_name.errors %}
+                            <div class="error">{{ form.last_name.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
-            <div class="contact-form">
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="input-group">
-                        <div class="firstname-group">
-                            <label for="firstname">First Name</label>
-                            <input type="text" id="firstname" name="first_name" required>
-                            {% if form.first_name.errors %}
-                                <div class="error">{{ form.first_name.errors }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="lastname-group">
-                            <label for="lastname">Last Name</label>
-                            <input type="text" id="lastname" name="last_name" required>
-                            {% if form.last_name.errors %}
-                                <div class="error">{{ form.last_name.errors }}</div>
-                            {% endif %}
-                        </div>
+                <div class="flex flex-col sm:flex-row gap-[4rem] justify-center text-[1.5rem] text-[#e6f4f8]">
+                    <div class="email-group flex flex-col">
+                        <label for="email">Email</label>
+                        <input class="appearance-none focus:outline-none bg-transparent border-b-2 border-[#e6f4f8]" type="text" id="lastname" name="email" required type="email" id="email" name="email" required>
+                        {% if form.email.errors %}
+                            <div class="error">{{ form.email.errors }}</div>
+                        {% endif %}
                     </div>
-                    <div class="input-group">
-                        <div class="email-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                            {% if form.email.errors %}
-                                <div class="error">{{ form.email.errors }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="subject-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
-                            {% if form.subject.errors %}
-                                <div class="error">{{ form.subject.errors }}</div>
-                            {% endif %}
-                        </div>
+                    <div class="subject-group flex flex-col">
+                        <label for="subject">Subject</label>
+                        <input class="appearance-none focus:outline-none bg-transparent border-b-2 border-[#e6f4f8]" type="text" id="lastname" name="subject" required type="text" id="subject" name="subject" required>
+                        {% if form.subject.errors %}
+                            <div class="error">{{ form.subject.errors }}</div>
+                        {% endif %}
                     </div>
-                    <div class="input-group">
-                        <div class="message-group">
-                            <label for="message">Leave a message</label>
-                            <textarea id="message" name="message" required></textarea>
+                </div>
+                <div class="input-group w-full text-[1.5rem] text-[#e6f4f8]">
+                    <div class="message-group subject-group flex flex-col">
+                        <label  for="message">Leave a message</label>
+                        <textarea class="appearance-none focus:outline-none bg-transparent border-b-2 border-[#e6f4f8] w-full" id="message" name="message" required></textarea>
+                    </div>
+                </div>
+                <div class="input-group self-start">
+                    <input class="bg-transparent w-[150px] border-[1px] border-[#e6f4f8] p-2 px-4 text-center text-[1.5rem] text-[#e6f4f8] hover:bg-[#e6f4f8] hover:text-[#00465d]" type="submit" value="Submit">
+                    {% if success_message %}
+                    <div class="message-succes text-[#e6f4f8] text-[1.5rem]" role="alert">
+                        {{ success_message }}
+                    </div>
+                    {% endif %}
+                    {% if error_message %}
+                        <div class="message-error text-[#e6f4f8] text-[1.5rem]" role="alert">
+                            {{ error_message }}
                         </div>
+                    {% endif %}
                     </div>
-                    <div class="input-group">
-                        <input type="submit" value="Submit">
-                    </div>
-                </form>
-                        {% if success_message %}
-        <div class="message-succes" role="alert">
-            {{ success_message }}
-        </div>
-        {% endif %}
-        {% if error_message %}
-            <div class="message-error" role="alert">
-                {{ error_message }}
-            </div>
-        {% endif %}
-        </div>
-            </div>
-        </div>
-    <footer>
-        <p>©2023 by Łukasz Gąsior. Hosted on PythonAnywhere. All rights reserved.</p>
-    </footer>
+                </div>
+            </forms>
+          </div> 
+          <footer class="text-center bg-[#99d1e3]">
+            <p>©2023 by Łukasz Gąsior. Hosted on PythonAnywhere. All rights reserved.</p>
+        </footer>
+      </div>
+    </div>
 </body>
 </html>
+
+<script>
+  document.getElementById('dropdownButton').addEventListener('mouseover', function() {
+      document.getElementById('dropdownContent').classList.remove('hidden');
+  });
+  document.getElementById('dropdownButton').addEventListener('mouseout', function() {
+      document.getElementById('dropdownContent').classList.add('hidden');
+  });
+
+  // Zapisz pozycję przed wysłaniem formularza
+    window.addEventListener('beforeunload', function() {    
+    localStorage.setItem('scrollPosition', window.scrollY);
+  });
+  
+  // Przywróć pozycję po przeładowaniu
+  window.addEventListener('load', function() {
+    if (localStorage.getItem('scrollPosition')) {
+      window.scrollTo(0, localStorage.getItem('scrollPosition'));
+    }
+  });
+</script>

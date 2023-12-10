@@ -125,6 +125,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "raport_from_list/static",
     BASE_DIR / "users/static",
+    BASE_DIR / "aboutme/static",
 ]
 
 # Default primary key field type
@@ -159,3 +160,9 @@ REST_FRAMEWORK = {
   ],
 }
 
+
+import os
+from pathlib import Path
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
