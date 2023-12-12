@@ -1,0 +1,69 @@
+[33mcommit 55fc19a76ad53277aa83d5b226ab1b5f39f5e3ac[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Luksonini <lukasz.jozeg.gasior@gmail.com>
+Date:   Tue Dec 12 17:06:29 2023 +0000
+
+    commit before rapair of pdf malfactnion
+
+[33mcommit b6ce29b73d1f64485ef53a755a56b812d0a5b364[m
+Merge: ee3f9b0 4c0477f
+Author: Luksonini <lukasz.jozeg.gasior@gmail.com>
+Date:   Sun Dec 10 20:04:44 2023 +0000
+
+    last changech before pushing from master
+
+[33mcommit 4c0477f9f0795dd5fb7a19fc5f22b9106c9f1062[m
+Author: Lukasz Gasior <lukasz.jozef.gasior@gmail.com>
+Date:   Sun Dec 10 20:45:42 2023 +0100
+
+    make aboutme website responsive
+
+[33mcommit ee3f9b0fb17d467981e9d86e6043a838d56ee477[m
+Author: Luksonini <lukasz.jozeg.gasior@gmail.com>
+Date:   Thu Dec 7 19:49:27 2023 +0000
+
+    last change
+
+[33mcommit fbb9b5c98bff559f3726eb4af9dbc46b44820cd6[m
+Author: Łukasz Gąsior <97095836+Luksonini@users.noreply.github.com>
+Date:   Wed Jun 7 19:57:47 2023 +0200
+
+    Delete db.sqlite3
+
+[33mcommit f6c6f039e70f9890c07e01716b94eb960b4e16ea[m
+Merge: 24d523d bc0229c
+Author: Łukasz Gąsior <97095836+Luksonini@users.noreply.github.com>
+Date:   Wed Jun 7 19:18:44 2023 +0200
+
+    Merge pull request #4 from Luksonini/working_mailing
+    
+    repaired mailing
+
+[33mcommit bc0229c95c8b06a29c313a2ce16aa586c6482b68[m
+Author: Luksonini <lukasz.jozeg.gasior@gmail.com>
+Date:   Wed Jun 7 16:53:22 2023 +0000
+
+    repaired mailing
+
+[33mcommit 24d523dd80c460eaac37fa56d647e729d12ad205[m
+Merge: 0dcb1a7 60094f5
+Author: Łukasz Gąsior <97095836+Luksonini@users.noreply.github.com>
+Date:   Tue Jun 6 01:42:20 2023 +0200
+
+    Merge pull request #3 from Luksonini/fixed-bugs
+    
+    fixed issue wit the pdf conversion with comtypes
+
+[33mcommit 60094f5295756a4e92ee18431b1661271bc01385[m
+Author: Lukasz Gasior <lukasz.jozef.gasior@gmail.com>
+Date:   Tue Jun 6 01:41:37 2023 +0200
+
+    fixed issue wit the pdf conversion with comtypes
+
+[33mcommit 0dcb1a7a23e10d043db13d1b91cd93837cbd0d24[m
+Merge: ccc3d61 2dd6b5a
+Author: Łukasz Gąsior <97095836+Luksonini@users.noreply.github.com>
+Date:   Tue Jun 6 00:21:35 2023 +0200
+
+    Merge pull request #2 from Luksonini/fixed-bugs
+    
+    Fixed bugs

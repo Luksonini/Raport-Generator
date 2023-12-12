@@ -1,14 +1,11 @@
 from users.models import Profile, ModifiedFile, PDFFile, ExcelFile, DocxZipFile, PdfZipFile
-from docx import Document 
+from docx import Document
 import tempfile
 import zipfile
 from io import BytesIO
 from django.core.files.base import ContentFile
 import os
 from pathlib import Path
-from docx2pdf import convert
-from django.conf import settings
-import pythoncom
 
 
 def convert_docxs_to_zip(profile, modified_files):
@@ -35,13 +32,12 @@ def convert_docxs_to_zip(profile, modified_files):
         # Handle the exception or log the error
         print(f"Error generating zip from docx: {str(e)}")
         return None
-     
 
+
+import subprocess
 import os
-import comtypes.client
 
 def convert_to_pdf(modified_files, username):
-    pythoncom.CoInitialize()
     profile = Profile.objects.get(user__username=username)
     old_pdf_files = PDFFile.objects.filter(profile=profile)
 
@@ -51,27 +47,22 @@ def convert_to_pdf(modified_files, username):
     else:
         try:
             pdf_urls = []
-            doc_file_path = Path(modified_files[0].modyfied_doc_file.path)
-            doc_dir_path = doc_file_path.parent
+            doc_dir_path = os.path.dirname(modified_files[0].modyfied_doc_file.path)
 
-            # Convert DOCX to PDF using Microsoft Word
-            word = comtypes.client.CreateObject("Word.Application")
             for file_name in os.listdir(doc_dir_path):
                 if file_name.endswith(".docx"):
                     docx_file_path = os.path.join(doc_dir_path, file_name)
                     pdf_file_name = os.path.splitext(file_name)[0] + ".pdf"
                     pdf_file_path = os.path.join(doc_dir_path, pdf_file_name)
 
-                    doc = word.Documents.Open(docx_file_path)
-                    doc.SaveAs(pdf_file_path, FileFormat=17)  # 17 corresponds to PDF format
-                    doc.Close()
+                    # Execute LibreOffice in headless mode to convert the document
+                    subprocess.run(["libreoffice", "--headless", "--convert-to", "pdf", docx_file_path, "--outdir", doc_dir_path])
 
+                    # Save PDF file information to the database
                     relative_file_path = os.path.join(username, 'modified_doc_documents', pdf_file_name)
                     pdf_file = PDFFile.objects.create(pdf_file=relative_file_path, profile=profile)
                     pdf_file.save()
                     pdf_urls.append(pdf_file.pdf_file.url)
-
-            word.Quit()
 
             # Print the PDF file names for testing purposes
             pdfs = PDFFile.objects.filter(profile=profile)
@@ -83,7 +74,6 @@ def convert_to_pdf(modified_files, username):
             pdf_urls = []
 
     return pdf_urls
-
 
 def convert_pdfs_to_zip(profile):
     try:
