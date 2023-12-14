@@ -1,0 +1,134 @@
+/* Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98 */
+
+/* General styles for converted HTML section */
+
+h1{
+  color: #fff;
+}
+
+h2 {
+   color: #fff;
+  font-size: 3rem;
+  /* font-weight: bold; */
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+
+.list-upload-background-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("/static/raport_from_list/images/file_upload2.jpg"); 
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.profile-image-container {
+  position: relative;
+  /* padding-top: 20rem; */
+  z-index: 1;
+}
+
+.input-container{
+  margin-top: 20rem;
+}
+
+/* converted html */
+
+.doc-text-container{
+    margin: 0.5rem 10rem 2rem 10rem; /* Top, right, bottom, left margin */
+    font-size: 1.6rem;
+    z-index: 1;
+    color: white;
+}
+
+/* Container for the entire document detail section */
+.document-detail-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.result-img img {
+  width: 100%; /* or any other percentage value that suits your needs */
+  height: 40rem; /* this will maintain the aspect ratio of the image */
+}
+
+/* Styles for the picture and search section */
+.picture-and-search{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5rem;
+    padding: 0;
+    margin-bottom: 5rem;
+    overflow: hidden;
+    font-weight: 800;
+    border-radius: 10px;
+}
+
+
+/* Label styles for the search and replace forms */
+.search-replace-label {
+    color: #fff; 
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+
+/* Styles for focused search and replace forms */
+form .search-form:focus,
+form .replace-form:focus {
+    border-color: #66afe9;
+    box-shadow: 0 0 5px #66afe9;
+}
+
+/* Styles for the modify form section */
+.modify_form{
+    padding-bottom: 2rem;
+}
+
+/* Styles for the replace form */
+.replace-form {
+    height: 10rem;
+}
+
+/* output */
+
+/* Styles for the search and replace button */
+.word-input{
+    width: 3em;
+    width: 75%;
+    border-radius: 10px;
+    color: #4a394d;
+    background: linear-gradient(0deg, #fff7d17a, #fffdf67a);
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    margin-bottom: 3rem;
+}
+
+/* Placeholder styles for the search and replace button */
+.word-input::placeholder{
+    font-weight: bold;
+    font-size: 1.5rem;
+    opacity: 0.5;
+    color: #8b443e;
+}
+
+/* input elements */
+
+
+.container {
+  margin-top: 2rem;
+}
+
+#doc-content span:hover{
+  color: #c77597;
+}
+

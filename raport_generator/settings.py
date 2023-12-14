@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-30x8p-k$y#8$u35@zey%p*y-kunj=d*dn$6wjsxsa6rf6=5=fn
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['www.raport-generator.pl', 'raport-generator.pl', 'www.Luksonini.pythonanywhere.com' 'pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -143,6 +143,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+DEFAULT_FROM_EMAIL = 'lukasz.jozef.gasior@gmail.com'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "your.raport@gmail.com"
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -159,3 +169,4 @@ REST_FRAMEWORK = {
   ],
 }
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

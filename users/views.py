@@ -10,7 +10,7 @@ from .forms import FileSharingForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
-
+from django.conf import settings
 
 class LogoutView(auth_views.LogoutView):
     next_page = reverse_lazy('users:home')
@@ -20,7 +20,7 @@ class LogoutView(auth_views.LogoutView):
         print('Logout message added')
         return response
 
-def home(request):    
+def home(request):
     for message in messages.get_messages(request):
         print(f"this is the message from logging out{message}")
     return render(request, 'raport_from_list/home.html')
@@ -60,7 +60,7 @@ def register_view(request):
                     messages.error(request, f'{field}: {error}')
     else:
         register_form = UserRegisterForm()
-    
+
     return render(request, "users/register.html", {"register_form": register_form})
 
 
@@ -69,12 +69,12 @@ def profile(request, username):
     user = User.objects.get(username=username)
     pdf_zip_link = None
     docx_zip_link = None
-    
+
     try:
         profile = Profile.objects.get(user__username=username)
     except Profile.DoesNotExist:
         profile = Profile.objects.create(user=user)
-    
+
     try:
         docx_zip_file = DocxZipFile.objects.get(profile=profile)
         docx_zip_link = request.build_absolute_uri(docx_zip_file.docx_zip_file.url)
@@ -89,24 +89,27 @@ def profile(request, username):
 
     if pdf_zip_link:
         results_url = pdf_zip_link
-    else:  
+    else:
         results_url = docx_zip_link
+
+
 
     if request.method == 'POST':
         form = FileSharingForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
-            file_url = docx_zip_link 
+            file_url = docx_zip_link
 
             subject = 'File Sharing'
             message += f'\n\nHere is the link to the raports: {file_url}'
-            sender = 'sender@example.com' 
+            sender = settings.EMAIL_HOST_USER
             recipient = email
-            send_mail(subject, message, sender, [recipient])
+            send_mail(subject, message, sender, [recipient],
+            fail_silently = False)
 
             messages.success(request, 'File shared successfully!')
-        
+
     else:
         form = FileSharingForm()
 

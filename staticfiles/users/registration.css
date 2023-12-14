@@ -1,0 +1,138 @@
+/* colors:
+#947099 #ce8ca8
+#66afe9
+#fbceb1 #fffaf7
+#fff7d1 #fffdf6
+#b34c43
+*/
+
+
+.login-image-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url("/static/users/images/login-bg2.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.alert {
+  font-size: 2rem; /* Replace with the font size you desire */
+}
+
+
+/* rest of the styles */
+.p-info{
+  font-size: 1.6rem;
+}
+
+.input-container{
+  width: 300rem;
+}
+
+.registration-container {
+  background-image: linear-gradient(to right, #f2709b2c, #ff72e734);
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+
+.registration-container img{
+  margin-bottom: 3rem;
+}
+
+.registration-container .errorlist{
+  font-size: 1.6rem;
+  color: #b34c43;
+}
+
+.subbmit-button{
+  margin-bottom: 0;
+}
+
+.helptext{
+  display: none;
+  font-size: 1.6rem;
+}
+
+/* login being an alternative to the registration */
+.login-alternative {
+  display: inline-block;
+  background-color: #947099;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: 1rem 3.13rem;
+  margin: 2rem;
+  margin-left: 0;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+}
+
+.login-alternative:hover {
+  transform: scale(0.9);
+}
+
+.login-alternative:hover {
+  background-color: #765a7a;
+}
+
+/* passwort reset in login */
+
+.passwort-reset-link {
+  color: #fff7d1;
+  text-decoration: none;
+  font-size: 1.6rem;
+  display: inline-block;
+}
+
+.passwort-reset-link:hover {
+  color: #b34c43;
+  text-decoration: none;
+}
+
+.reset-form-control input {
+  width: 75%;
+  border-radius: 10px;
+  color: #ce8ca8;
+  background: linear-gradient(0deg, #fff7d170, #fffdf681);
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  padding-top: 10px;
+  border-top-width: 1px;
+  margin: 1rem auto 1rem auto;
+}
+
+.reset-form-control input:-webkit-autofill,
+.reset-form-control input:-webkit-autofill:hover,
+.reset-form-control input:-webkit-autofill:focus,
+.reset-form-control input:-webkit-autofill:active {
+  -webkit-transition: background-color 5000s ease-in-out 0s !important;
+  -webkit-text-fill-color: #947099 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #fff7d17e inset !important;
+  font-size: 2rem !important;
+}
+
+.reset-form-control input:hover,
+.reset-form-control input:focus {
+  color: #947099;
+}
+
+.reset-form-control ul {
+  text-align: left;
+  font-size: 2rem;
+}

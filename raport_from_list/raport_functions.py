@@ -5,10 +5,21 @@ import zipfile
 from io import BytesIO
 from django.core.files.base import ContentFile
 import os
-from pathlib import Path
-
+from bs4 import BeautifulSoup
+import re
+import subprocess
 
 def convert_docxs_to_zip(profile, modified_files):
+    """
+    Converts a list of ModifiedFile objects into a zip file for a given profile.
+
+    Args:
+    profile (Profile): The user's profile object.
+    modified_files (QuerySet): QuerySet of ModifiedFile objects to be zipped.
+
+    Returns:
+    str: URL to the created zip file.
+    """
     try:
         # Check if there is an existing zip file
         existing_zip_file = DocxZipFile.objects.filter(profile=profile).first()
@@ -34,10 +45,19 @@ def convert_docxs_to_zip(profile, modified_files):
         return None
 
 
-import subprocess
-import os
+
 
 def convert_to_pdf(modified_files, username):
+    """
+    Converts DOCX files to PDF format for a specific user.
+
+    Args:
+    modified_files (QuerySet): QuerySet of ModifiedFile objects to be converted.
+    username (str): Username of the profile owner.
+
+    Returns:
+    list: List of URLs to the converted PDF files.
+    """
     profile = Profile.objects.get(user__username=username)
     old_pdf_files = PDFFile.objects.filter(profile=profile)
 
@@ -53,7 +73,6 @@ def convert_to_pdf(modified_files, username):
                 if file_name.endswith(".docx"):
                     docx_file_path = os.path.join(doc_dir_path, file_name)
                     pdf_file_name = os.path.splitext(file_name)[0] + ".pdf"
-                    pdf_file_path = os.path.join(doc_dir_path, pdf_file_name)
 
                     # Execute LibreOffice in headless mode to convert the document
                     subprocess.run(["libreoffice", "--headless", "--convert-to", "pdf", docx_file_path, "--outdir", doc_dir_path])
@@ -76,6 +95,15 @@ def convert_to_pdf(modified_files, username):
     return pdf_urls
 
 def convert_pdfs_to_zip(profile):
+    """
+    Converts all PDF files associated with a given profile into a zip file.
+
+    Args:
+    profile (Profile): The user's profile object.
+
+    Returns:
+    str: URL to the created zip file.
+    """
     try:
         # Check if there is an existing zip file
         existing_zip_file = PdfZipFile.objects.filter(profile=profile).first()
@@ -102,6 +130,12 @@ def convert_pdfs_to_zip(profile):
         return None
 
 def delete_old_files(profile):
+    """
+    Deletes all files (ModifiedFile, PDFFile, ExcelFile, etc.) associated with a given profile.
+
+    Args:
+    profile (Profile): The user's profile object.
+    """
     try:
         # Delete ModifiedFile objects
         ModifiedFile.objects.filter(profile=profile).delete()
@@ -131,54 +165,76 @@ def delete_old_files(profile):
         print(f"Error deleting old files: {str(e)}")
 
 def generate_modified_filename(prefix, file_number):
+    """
+    Generates a modified filename using a given prefix and file number.
+
+    Args:
+    prefix (str): Prefix for the filename.
+    file_number (int): File number to be appended to the filename.
+
+    Returns:
+    str: Generated filename.
+    """
     modified_filename = f"{prefix}_{file_number}.docx"
     return modified_filename
 
 
 def generate_reports(profile, form_data, request):
+    """
+    Generates modified reports based on form data and original file.
+    Replaces specific words in the document as per Excel data.
+
+    Args:
+    profile (Profile): The user's profile object.
+    form_data (dict): Data from the form mapping Excel column values to words.
+    request (HttpRequest): The request object.
+
+    Returns:
+    dict: A dictionary containing URLs of modified documents and any words not found.
+    """
     try:
         original_file_path = profile.doc_file.path
         docx_urls = []
         not_found = []
         words_number = len(form_data[list(form_data.keys())[0]])
         selected_filenames = request.session.get('selected_filenames', None)
-
-        # delete_old_files(profile)  # delete old modified files
-
+        print(f"to jest przekazany słownik {form_data}")
         for i in range(words_number):
             with open(original_file_path, "rb") as original_file:
                 doc = Document(original_file)
+            print("otwarcie documentu original_file_path")
 
-                for search_key, word_list in form_data.items():
-                    word_to_replace = word_list[i]
-                    found = False
+            for search_key in form_data.keys():
+                found = False
 
-                    for paragraph in doc.paragraphs:
-                        if search_key in paragraph.text:
-                            found = True
-                            paragraph.text = paragraph.text.replace(search_key, word_to_replace)
+                for paragraph in doc.paragraphs:
+                    if search_key in paragraph.text:
+                        found = True
+                        paragraph.text = paragraph.text.replace(search_key, form_data[search_key][i])
 
-                    if not found:
-                        not_found.append(search_key)
+            if not found:
+                not_found.append(search_key)
+            print(f"Zamiana {search_key} na {form_data[search_key][i]}")
 
-                if selected_filenames:
-                    modified_filename = selected_filenames[i]
-                else:
-                    modified_filename = generate_modified_filename("file", i)
+            if selected_filenames:
+                modified_filename = selected_filenames[i]
+            else:
+                modified_filename = generate_modified_filename("file", i)
 
-                with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-                    doc.save(temp_file.name)
-                    temp_file.close()
+            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                doc.save(temp_file.name)
+                temp_file.close()
 
-                    with open(temp_file.name, "rb") as file:
-                        modified_file = ModifiedFile(profile=profile)
-                        modified_file.modyfied_doc_file.save(modified_filename, file, save=False)
-                        modified_file.modyfied_doc_file_name = modified_filename
-                        modified_file.save()
+            with open(temp_file.name, "rb") as file:
+                modified_file = ModifiedFile(profile=profile)
+                modified_file.modyfied_doc_file.save(modified_filename, file, save=False)
+                modified_file.modyfied_doc_file_name = modified_filename
+                modified_file.save()
 
-                        docx_urls.append(modified_file.modyfied_doc_file.url)
+                docx_urls.append(modified_file.modyfied_doc_file.url)
 
-                    os.unlink(temp_file.name)
+            os.unlink(temp_file.name)
+            print("zapisanie dokumentu")
 
         return {
             'docx_urls': docx_urls,
@@ -192,10 +248,18 @@ def generate_reports(profile, form_data, request):
             'not_found': [],
         }
 
-from bs4 import BeautifulSoup
-
 
 def generate_html(profile):
+    """
+    Generates an HTML representation of a DOCX file's content.
+
+    Args:
+    profile (Profile): The user's profile object.
+
+    Returns:
+    str: HTML representation of the DOCX file.
+    """
+
     original_file_path = profile.doc_file.path
 
     with open(original_file_path, "rb") as original_file:
@@ -205,21 +269,20 @@ def generate_html(profile):
         for para in document.paragraphs:
             p = soup.new_tag('p')
             for run in para.runs:
-                words = run.text.split()
+                words = re.split(r'(\s+)', run.text)
                 for word in words:
-                    if run.bold and run.italic:
-                        span = soup.new_tag('span', style='font-weight: bold; font-style: italic;')
-                    elif run.bold:
-                        span = soup.new_tag('span', style='font-weight: bold;')
-                    elif run.italic:
-                        span = soup.new_tag('span', style='font-style: italic;')
-                    elif run.underline:
-                        span = soup.new_tag('span', style='text-decoration: underline;')
-                    else:
+                    if word.strip():
                         span = soup.new_tag('span')
-                    span.string = word
-                    p.append(span)
-                    p.append(' ')  # Append a space after each word
+                        if run.bold:
+                            span['style'] = 'font-weight: bold;'
+                        if run.italic:
+                            span['style'] = span.get('style', '') + 'font-style: italic;'
+                        if run.underline:
+                            span['style'] = span.get('style', '') + 'text-decoration: underline;'
+                        span.string = word
+                        p.append(span)
+                    else:
+                        p.append(word)
             soup.append(p)
 
         return str(soup)

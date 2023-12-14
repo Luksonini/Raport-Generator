@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 from .forms import ContactForm
 import os
+from django.conf import settings
 
 def aboutme(request):
-    pdf_directory = 'aboutme/static/courses/'
+    # Pełna ścieżka do katalogu z plikami PDF
+    pdf_directory = os.path.join(settings.BASE_DIR, 'aboutme/static/courses/')
 
     # Get the list of PDF courses files in the directory
     pdf_files = os.listdir(pdf_directory)
@@ -18,11 +20,11 @@ def aboutme(request):
             sender = form.cleaned_data['email']
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
-            
+
             recipients = ['lukasz.jozef.gasior@gmail.com']
-            
+
             message = f"Message from {first_name} {last_name}, email: {sender} \n\n {message}"
-            
+
             send_mail(subject, message, sender, recipients)
     else:
         form = ContactForm()

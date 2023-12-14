@@ -1,0 +1,15 @@
+@keyframes scroll {
+  0% {
+    transform: translateY(0); /* Start slightly down from the top */
+  }
+  50% {
+    transform: translateY(-50%); /* Move up past the original point */
+  }
+  100% {
+    transform: translateY(0); /* Return to the slightly down from the top */
+  }
+}
+
+.animate-scrolling {
+  animation: scroll 100s linear infinite;
+}
