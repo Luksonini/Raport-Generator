@@ -85,4 +85,14 @@
     </body>
 </html>
 
+<script>
+    window.onload = function() {
+        if (localStorage.getItem("scrollPosition")) {
+            window.scrollTo(0, localStorage.getItem("scrollPosition"));
+        }
+    };
 
+    window.onscroll = function() {
+        localStorage.setItem("scrollPosition", window.scrollY);
+    };
+</script>

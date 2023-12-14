@@ -46,7 +46,8 @@
                             {{ filenames_form.filenames }}
                         </div>
                         <br>
-                        <button type="submit" class="submit-button">Submit</button>
+                        <input type="hidden" name="etap_zamiany_slow" value="1"/>
+                        <button type="submit"  class="submit-button">Submit</button>
                     </form> 
                 </div>                
             </div>
@@ -55,10 +56,10 @@
             <h1>Content of the orginal document</h1>
             <div id="doc-content"  class="doc-text-container">
                 {{ docx_html|safe }}
-                <a class="section-to-scroll" href="#section-to-scroll">Go to chooing words panel</a>  
             </div>   
         </div>    
     </div>
+    <a class="section-to-scroll" href="#section-to-scroll">Go to chooing words panel</a>  
 
 {% endblock content %}
 
