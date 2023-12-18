@@ -15,17 +15,17 @@
     text-align: center;
     margin-top: 50px;
   }
-  
+
   .error-image img {
-    width: 200rem;
+    width: 20rem;
     height: auto;
   }
-  
+
   .error-message h1 {
     font-size: 24px;
     margin-top: 20px;
   }
-  
+
   .error-message p {
     font-size: 16px;
     margin-top: 10px;

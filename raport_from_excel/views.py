@@ -72,7 +72,7 @@ def choose_columns(request, username):
     selected_columns = None
     words_to_replace = None
     selected_filename = None
-    
+
     # Retrieve user profile and associated Excel file
     profile = Profile.objects.get(user__username=username)
     excel = profile.excelfile_set.first()
@@ -94,7 +94,7 @@ def choose_columns(request, username):
     if request.method == 'POST':
         columns_form = ColumnChoiceForm(request.POST, choices=column_choices)
         filenames_form = FilenameChoiceForm(request.POST, filename_columns=filename_columns)
-        
+
         # Collect words to replace from the form data
         for column_choice in column_choices:
             words_to_replace = []
@@ -104,34 +104,35 @@ def choose_columns(request, username):
         if columns_form.is_valid() and filenames_form.is_valid():
             selected_columns = columns_form.cleaned_data.get('columns')
             selected_filename_column = filenames_form.cleaned_data.get('filenames')
-            
+
             # Handle filename selection logic
             if selected_filename_column not in "Default filenames":
                 selected_filenames = excel_data[selected_filename_column].to_list()
                 selected_filenames = [str(filename) + '.docx' for filename in selected_filenames]
                 request.session['selected_filenames'] = selected_filenames
                 request.session['filenames'] = selected_filename
-            
+
             # Prepare data for report generation
             excel_words_to_replace = {}
             replace_df_column_dict = {}
             for column in selected_columns:
                 word = request.POST.get(column)
                 if word is not None:
-                    excel_words_to_replace[column] = word    
+                    excel_words_to_replace[column] = word
                 modified_files = ModifiedFile.objects.filter(profile=profile)
                 for file in modified_files:
                     file.delete()
             docx_urls = []
             print(excel_words_to_replace)
             for column, word in excel_words_to_replace.items():
-                replace_df_column_dict[word] = excel_data[column].values.tolist()
+                values_as_str = [str(value) for value in excel_data[column].values]
+                replace_df_column_dict[word] = values_as_str
 
             # Generate reports and handle results
             results = generate_reports(profile, replace_df_column_dict, request)
             docx_urls = results.get('docx_urls', [])
             not_found = results.get('not_found', [])
-            
+
             # Handle errors and redirect if necessary
             if not_found:
                 error_message = f"{', '.join(str(element) for element in set(not_found))} not found in the document text."

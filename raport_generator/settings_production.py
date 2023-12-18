@@ -142,10 +142,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-DEFAULT_FROM_EMAIL = 'lukasz.jozef.gasior@gmail.com'
+DEFAULT_FROM_EMAIL = 'your.raport@gmail.com'
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "lukasz.jozef.gasior@gmail.com"
-EMAIL_HOST_PASSWORD = 'qeoyweirfqxtlago'
+EMAIL_HOST_USER = "your.raport@gmail.com"
+EMAIL_HOST_PASSWORD = 'plcvshqfdpvganbh'
 # os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-30x8p-k$y#8$u35@zey%p*y-kunj=d*dn$6wjsxsa6rf6=5=fn"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 
@@ -145,9 +145,10 @@ LOGOUT_URL = 'logout'
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-DEFAULT_FROM_EMAIL = 'lukasz.jozef.gasior@gmail.com'
+DEFAULT_FROM_EMAIL = 'your.raport@gmail.com'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "your.raport@gmail.com"
+# EMAIL_HOST_PASSWORD = 'plcvshqfdpvganbh'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

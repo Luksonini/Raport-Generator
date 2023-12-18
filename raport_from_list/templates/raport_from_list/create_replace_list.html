@@ -2,9 +2,9 @@
 {% extends 'raport_from_list/base.html' %}
 {% load static %}
 
-{% block title %} 
+{% block title %}
 File upload
-{% endblock %} 
+{% endblock %}
 
 {% block css_files %}
   <link rel="stylesheet" href="{% static "raport_from_list/home.css" %}"/>
@@ -45,9 +45,9 @@ File upload
             <div id="doc-content"  class="doc-text-container">
                 {{ docx_html|safe }}
             </div>
-            <a class="section-to-scroll" href="#section-to-scroll">Go to chooing words panel</a>  
-        </div>      
         </div>
+        </div>
+        <a class="section-to-scroll" href="#section-to-scroll">Go to chooing words panel</a>
     </div>
   </div>
 </div>
