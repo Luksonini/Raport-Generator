@@ -124,9 +124,9 @@ def choose_columns(request, username):
                 for file in modified_files:
                     file.delete()
             docx_urls = []
-            print(excel_words_to_replace)
             for column, word in excel_words_to_replace.items():
-                replace_df_column_dict[word] = excel_data[column].values.tolist()
+                values_as_str = [str(value) for value in excel_data[column].values]
+                replace_df_column_dict[word] = values_as_str
 
             # Generate reports and handle results
             results = generate_reports(profile, replace_df_column_dict, request)

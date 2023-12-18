@@ -9,3 +9,6 @@ urlpatterns = [
     path('load_excel_example/<slug:username>/', views.load_excel_example, name='load_excel_example'),
 ]
     
+
+
+

@@ -46,8 +46,7 @@
                             {{ filenames_form.filenames }}
                         </div>
                         <br>
-                        <input type="hidden" name="etap_zamiany_slow" value="1"/>
-                        <button type="submit"  class="submit-button">Submit</button>
+                        <button type="submit" class="submit-button">Submit</button>
                     </form> 
                 </div>                
             </div>
@@ -56,6 +55,7 @@
             <h1>Content of the orginal document</h1>
             <div id="doc-content"  class="doc-text-container">
                 {{ docx_html|safe }}
+                <br>
             </div>   
         </div>    
     </div>
@@ -74,9 +74,9 @@ document.addEventListener('focus', function(event) {
         // Update the currently focused field
         focusedField = event.target;
     }
-}, true);  // The 'true' parameter causes the listener to capture events before they reach their target elements
+}, true);  
 
-// Then, in your existing click event listener:
+
 
 // Select the document content div
 const docContent = document.getElementById('doc-content');
@@ -85,7 +85,6 @@ const docContent = document.getElementById('doc-content');
 docContent.addEventListener('click', function(event) {
     // Make sure the clicked element is a word
     if (event.target.nodeName === 'SPAN' && focusedField) {
-        // Get the word
         const word = event.target.textContent;
 
         // Populate the currently focused field with the clicked word
