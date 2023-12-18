@@ -1,5 +1,7 @@
 # Raport-Generator
 
+![image](https://github.com/Luksonini/Raport-Generator/assets/97095836/2d20394d-06bc-4a87-8192-7c136fa2ff86)
+
 ## Introduction
 Raport-Generator is a web application that allows users to generate modified versions of Word documents (.docx)by replacing keywords with corresponding values.
 It also provides functionalities to convert multiple DOCX or PDF files into a ZIP archive.
